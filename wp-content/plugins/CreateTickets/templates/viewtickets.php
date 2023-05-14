@@ -44,7 +44,7 @@ if ($results) {
     echo  '</tbody>';
     echo  '</table>';
   } else {
-    echo 'No members found.';
+    echo 'No tickets found.';
   }
 
 if (isset($_POST['delete_ticket'])) {
