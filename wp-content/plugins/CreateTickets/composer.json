@@ -1,0 +1,18 @@
+{
+    "name": "ticket/system",
+    "description": "A ticketing system",
+    "type": "project",
+    "license": "GPLv2",
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./inc"
+        }
+    },
+    "authors": [
+        {
+            "name": "PK"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
