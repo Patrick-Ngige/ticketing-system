@@ -18,7 +18,7 @@ class CreateTickets{
         $table_name = $wpdb->prefix.'tickets';
 
         $tickets_details = "CREATE TABLE IF NOT EXISTS ".$table_name."(
-            ticket_id varchar(200) NOT NULL AUTO_INCREMENT ,
+            ticket_id varchar(200) NOT NULL PRIMARY KEY ,
             ticket_task text NOT NULL,
             assignee  text NOT NULL,
             issued_date date NOT NULL

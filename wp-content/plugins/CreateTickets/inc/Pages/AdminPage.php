@@ -13,6 +13,8 @@ class AdminPage extends BaseController{
 
     public $settings;
 
+    public $ticket_id;
+
     public $pages;
 
     function register(){
@@ -23,8 +25,9 @@ class AdminPage extends BaseController{
 
         $this->settings->AddPages( $this->pages )->register();
     }
-
+    
     public function setPages(){ 
+       
         $this->pages= [
         [
             'page_title'=> 'Ticketing System',
@@ -49,11 +52,15 @@ class AdminPage extends BaseController{
             'menu_title'=> 'Edit Ticket',
             'capability'=> 'manage_options',
             'menu_slug'=> 'edit_ticket',
-            'callback'=> function(){ return require_once( "$this->plugin_path/templates/editticket.php");},           'page_title'=> 'Ticketing System',
+            'callback'=> function(){ return require_once( "$this->plugin_path/templates/editticket.php");},          
             'icon_url'=> 'dashicons-edit-page',
             'position'=> 202,
         ]
         ];
     }
+
+    // function pages(){
+    //     $this->settings->AddPages( $this->pages )->register();
+    // }
 
 }
