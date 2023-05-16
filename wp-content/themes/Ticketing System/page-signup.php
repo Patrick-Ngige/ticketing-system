@@ -1,56 +1,76 @@
-<?php get_header();
+<?php
+// if (is_user_logged_in()) {
+//   wp_redirect(home_url());
+// }
+get_header();
 
 /**
  * Template Name: Signup page
  */
 
+$error = '';
+
+global $wpdb;
+
+if (isset($_POST['registerbtn'])) {
+  $info = [
+    'user_email' => $_POST['user_mail'],
+    'user_login' => $_POST['employee_id'],
+    'user_pass' => $_POST['password'],
+    'role' => 'Subscriber'
+
+  ];
+
+
+  $user = wp_insert_user( $info ) ;
+
+}
 ?>
 
-<!-- Section: Design Block -->
-<section class="text-center" style="background-color: #DBDFEA;height:90vh;display:flex; justify-content:center;">
+<section class="text-center" style="background-color: #DBDFEA;display:flex; justify-content:center;height:95vh;">
 
   <div class="card mx-4 mx-md-5 shadow-5-strong" style="
         background: hsla(0, 0%, 100%, 0.8);
         backdrop-filter: blur(70px);
         width: 40vw;
-        height: 50vh;
+        height:fit-content;
+        margin-top: 1em;
+        border-radius: 20px;
         display: flex;
         justify-content: center;
-        box-shadow:   0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12)
-;
+       
         ">
     <div class="card-body py-5 px-md-5">
 
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
           <h2 class="fw-bold mb-5">Sign up now</h2>
-          <form>
+
+
+          <form action="http://localhost/ticketing-system/" method="POST">
             <div class="form-outline mb-4">
-              <label class="form-label d-flex flex-left" for="form3Example3">Embloyee number</label>
-              <input type="email" id="form3Example3" class="form-control" />
+              <label class="form-label d-flex flex-left" for="form3Example3">Employee number</label>
+              <input type="text" id="form3Example3" class="form-control" placeholder="Enter employee number" name="employee_id" required />
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label d-flex flex-left" for="form3Example3">Email</label>
+              <input type="email" id="form3Example3" class="form-control" placeholder="Enter email" name="user_mail" required />
             </div>
 
-            <!-- Password input -->
+
             <div class="form-outline mb-4">
               <label class="form-label d-flex flex-left" for="form3Example4">Password</label>
-              <input type="password" id="form3Example4" class="form-control" />
+              <input type="password" id="form3Example4" class="form-control" placeholder="Enter employee password" name="password" required />
             </div>
 
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4 w-50">
-              Sign up
-            </button>
+
+            <div class="pt-1 mb-2 w-100">
+              <button class="btn btn-dark btn-lg btn-block w-50" type="submit" name="registerbtn">Register</button>
+            </div>
+            <!-- <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? <a href="http://localhost/ticketing-system/" style="color: #393f81;">Login</a></p> -->
           </form>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- Section: Design Block -->
-
-<?php get_footer(); ?>

@@ -7,6 +7,10 @@
             <input type="text" style="width:100%;" placeholder="Enter product name" name="t_id" required>
         </div>
         <div>
+            <label>Username:</label><br>
+            <input type="text" style="width:100%;" placeholder="Enter product name" name="user_login" required>
+        </div>
+        <div>
             <label>Ticket Task: </label><br>
             <input type="text" style="width:100%;" placeholder="Enter product brand" name="t_task" required><br>
 

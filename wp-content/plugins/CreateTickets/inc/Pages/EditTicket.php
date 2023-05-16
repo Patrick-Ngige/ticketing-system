@@ -1,25 +1,41 @@
 <?php
+
 /**
  * @package CreateTicketsPlugin
  */
 
 namespace Inc\Pages;
 
-class CreateTickets{
-    public function register(){
-        $this->add_ticket_to_db();
+
+
+
+class EditTicket
+{
+    public function register()
+    {
+        $this->update_ticket_to_db();
     }
 
+    function update_ticket_to_db()
+    {
 
-    function add_ticket_to_db(){
-        if(isset($_POST['update'])){
-            $data =[
-                'ticket_id'=> $_POST['t_id'],
-                'ticket_task'=> $_POST['t_task'],
-                'assignee'=> $_POST['assignee'],
-                'issued_date'=> $_POST['issued_date']
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'tickets';
+
+        if (isset($_POST['update'])) {
+            $data = [
+                'ticket_id' => $_POST['edt_id'],
+                'user_login' => $_POST['edt_user_login'],
+                'ticket_task' => $_POST['edt_task'],
+                'assignee' => $_POST['edt_assignee'],
+                'issued_date' => $_POST['edt_issued_date']
             ];
 
+            $ticket_id = $_GET['ticket_id'];
+            $result = $wpdb->update($table_name, $data, array('ticket_id' => "$ticket_id"));
         }
+
+        
     }
 }

@@ -9,8 +9,10 @@ class Init{
     public static function get_services(){
         return [
             Pages\AdminPage::class,
+            Base\Enqueue::class,
             Base\SettingsLinks::class,
-            Pages\CreateTickets::class
+            Pages\CreateTickets::class,
+            Pages\EditTicket::class
         ];
     }
 

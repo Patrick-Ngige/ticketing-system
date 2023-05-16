@@ -19,6 +19,7 @@ class CreateTickets{
 
         $tickets_details = "CREATE TABLE IF NOT EXISTS ".$table_name."(
             ticket_id varchar(200) NOT NULL PRIMARY KEY ,
+            user_login varchar(20) NOT NULL,
             ticket_task text NOT NULL,
             assignee  text NOT NULL,
             issued_date date NOT NULL
@@ -32,9 +33,12 @@ class CreateTickets{
         if(isset($_POST['submitbtn'])){
             $data =[
                 'ticket_id'=> $_POST['t_id'],
+                'user_login' => $_POST['user_login'],
                 'ticket_task'=> $_POST['t_task'],
                 'assignee'=> $_POST['assignee'],
                 'issued_date'=> $_POST['issued_date']
+                // 'status'=> $_POST['status'],
+
             ];
 
             global $wpdb;
