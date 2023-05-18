@@ -55,12 +55,17 @@ class AdminPage extends BaseController{
             'callback'=> function(){ return require_once( "$this->plugin_path/templates/editticket.php");},          
             'icon_url'=> 'dashicons-edit-page',
             'position'=> 202,
+        ],
+        [
+            'page_title'=> 'Ticketing System',
+            'menu_title'=> 'Deleted Tickets',
+            'capability'=> 'manage_options',
+            'menu_slug'=> 'deleted_ticket',
+            'callback'=> function(){ return require_once( "$this->plugin_path/templates/deletedtickets.php");},          
+            'icon_url'=> 'dashicons-trash',
+            'position'=> 203,
         ]
         ];
     }
-
-    // function pages(){
-    //     $this->settings->AddPages( $this->pages )->register();
-    // }
 
 }

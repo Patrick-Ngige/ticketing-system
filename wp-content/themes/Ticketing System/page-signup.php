@@ -1,30 +1,49 @@
 <?php
-// if (is_user_logged_in()) {
-//   wp_redirect(home_url());
-// }
+
 get_header();
 
 /**
  * Template Name: Signup page
  */
 
-$error = '';
+
 
 global $wpdb;
 
-if (isset($_POST['registerbtn'])) {
-  $info = [
-    'user_email' => $_POST['user_mail'],
-    'user_login' => $_POST['employee_id'],
-    'user_pass' => $_POST['password'],
-    'role' => 'Subscriber'
+$table_name = $wpdb->prefix . 'members';
 
-  ];
+$wpdb->show_errors(); 
 
+$fields = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
+            employee_id text NOT NULL ,
+            username text NOT NULL,
+            email text NOT NULL,
+            password varchar(200),
+            PRIMARY KEY(employee_id(10))          
+);";
 
-  $user = wp_insert_user( $info ) ;
+require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+dbDelta($fields);
 
+  global $wpdb;
+
+  $table_name = $wpdb->prefix . 'members';
+
+  if (isset($_POST['registerbtn'])) {
+    $info = [
+      'employee_id' => $_POST['employee_id'],
+      'username' => $_POST['username'],
+      'email' => $_POST['email'],
+      'password' => $_POST['password'],
+    ];
+
+    $dummy = $wpdb->insert($table_name, $info);
+  //   if ($dummy !== false) {
+  //     wp_redirect('http://localhost/ticketing-system/');
+  //     exit;
+  // }
 }
+
 ?>
 
 <section class="text-center" style="background-color: #DBDFEA;display:flex; justify-content:center;height:95vh;">
@@ -44,23 +63,33 @@ if (isset($_POST['registerbtn'])) {
 
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
-          <h2 class="fw-bold mb-5">Sign up now</h2>
+          <h2 class="fw-bold mb-2">Sign up now</h2>
 
 
-          <form action="http://localhost/ticketing-system/" method="POST">
+          <form action="" method="POST">
             <div class="form-outline mb-4">
               <label class="form-label d-flex flex-left" for="form3Example3">Employee number</label>
-              <input type="text" id="form3Example3" class="form-control" placeholder="Enter employee number" name="employee_id" required />
+              <input type="text" id="form3Example3" class="form-control" placeholder="Enter employee number"
+                name="employee_id" required />
             </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label d-flex flex-left" for="form3Example3">Username </label>
+              <input type="text" id="form3Example3" class="form-control" placeholder="Enter employee number"
+                name="username" required />
+            </div>
+
             <div class="form-outline mb-4">
               <label class="form-label d-flex flex-left" for="form3Example3">Email</label>
-              <input type="email" id="form3Example3" class="form-control" placeholder="Enter email" name="user_mail" required />
+              <input type="email" id="form3Example3" class="form-control" placeholder="Enter email" name="email"
+                required />
             </div>
 
 
             <div class="form-outline mb-4">
               <label class="form-label d-flex flex-left" for="form3Example4">Password</label>
-              <input type="password" id="form3Example4" class="form-control" placeholder="Enter employee password" name="password" required />
+              <input type="password" id="form3Example4" class="form-control" placeholder="Enter employee password"
+                name="password" required />
             </div>
 
 

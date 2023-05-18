@@ -12,7 +12,7 @@ class Init{
             Base\Enqueue::class,
             Base\SettingsLinks::class,
             Pages\CreateTickets::class,
-            Pages\EditTicket::class
+            // Pages\EditTicket::class
         ];
     }
 
