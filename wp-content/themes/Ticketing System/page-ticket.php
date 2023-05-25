@@ -1,13 +1,9 @@
 <?php
 get_header();
 
-// if (is_user_logged_in()) {
-
 
 global $wpdb;
 $current_assignee = $_COOKIE['currentassignee'];
-// $current_user = wp_get_current_user();
-// $username = $current_user->assignee;
 
 $tickets = $wpdb->prefix . 'tickets';
 $members = $wpdb->prefix . 'members';
@@ -16,16 +12,13 @@ $query = $wpdb->prepare(
     "SELECT * FROM wp_tickets WHERE assignee = '$current_assignee'"
 );
 
-
 $results = $wpdb->get_row($query);
 
-// var_dump($results);
+ ?>
 
-//  foreach ($results as $ticket) { ?>
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <div class="container " styles="background-color:#DBDFEA ">
-        <section class="section mb-5">
+ 
+    <div class="container " >
+        <section class="section mb-5 " >
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7 text-center desc">
@@ -42,7 +35,7 @@ $results = $wpdb->get_row($query);
             </section>
             <section class="section pt-0">
                 <div class="container">
-                    <div class="row gy-4 justify-content-center">
+                    <div class="row gy-4 justify-content-center" >
 
 
                         <div class="col-sm-6 col-md-6 col-lg-4">
@@ -122,19 +115,51 @@ $results = $wpdb->get_row($query);
                                 </div>
                             </div>
                         </div>
-                        <button class=" ps-3 col btn btn-primary flex-shrink-0" type="submit">Mark Complete</button>
-                        <form class="d-flex flex-column flex-md-row mt-4"><input type="email"
-                                class="form-control me-sm-2 mb-2 mb-sm-0" placeholder="you@yoursite.com"> </form>
+                        <form action="">
+                        <input type="submit" class=" btn btn-primary w-50 " style="display:flex; justify-content: center; " name="markcomplete" value="Mark Complete"></input>
+                        </form>
+                      
                     </div>
                 </div>
             </section>
         </div>
 
  <?php
-//  };
-// }
- ?>
+global $wpdb;
+global $success_msg;
+global $error_msg;
 
-<!-- // } else {
-//     wp_redirect('http://localhost/ticketing-system/');
-// } -->
+$table_name = $wpdb->prefix . 'tickets';
+global $wpdb;
+$current_assignee = $_COOKIE['currentassignee'];
+// var_dump($current_assignee);
+
+$tickets = $wpdb->prefix . 'tickets';
+$members = $wpdb->prefix . 'members';
+
+// $query = $wpdb->prepare(
+//     "SELECT ticket_id FROM wp_tickets WHERE assignee = '$current_assignee'"
+// );
+
+
+
+if (isset($_POST['markcomplete'])) {
+  $data = ['ticket_status' => 1];
+ 
+  global $wpdb;
+global $success_msg;
+global $error_msg;
+
+$table_name = $wpdb->prefix . 'tickets';
+global $wpdb;
+  
+  $deleted = $wpdb->update($table_name, $data, array(" assignee = '$current_assignee'"));
+  var_dump($deleted);
+  echo '<script> location.reload(); </script>';
+
+  if ($deleted) {
+      $success_msg = "Ticked marked successfully";
+  } else {
+      $error_msg = "Not completed";
+  }
+}

@@ -21,7 +21,7 @@ add_theme_support('custom-thumbnails');
 add_theme_support('post-formats',['aside','image','video']);
 
 
-//Adding custom meta boxes to the ticket post type:
+//custom meta boxes:ticket post type
 
 
 
@@ -64,20 +64,27 @@ function ticket_status_callback( $post ) {
     <?php
 }
 
-//Updating the assigned employee and status when a ticket is saved:
+//CUSTOM FIELD (CF) REST API
+function cp_rest_api(){
+    register_rest_field(
+        'post', 
+        'custom_field',
+        [
+            'get_callback' => 'get_custom_field'
+        ]
+        );
 
-function save_ticket_meta_box( $post_id ) {
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( isset( $_POST['assigned_employee'] ) ) {
-        update_post_meta( $post_id, 'assigned_employee', $_POST['assigned_employee'] );
-    }
-    if ( isset( $_POST['status'] ) ) {
-        update_post_meta( $post_id, 'status', $_POST['status'] );
-    }
 }
-add_action( 'save_post_ticket', 'save_ticket_meta_box' );
+
+function get_custom_field($obj){
+    $post_id = $obj['id'];
+     echo '<pre>';
+     print_r($post_id);
+     echo '</pre>';
+
+     return get_post_meta($post_id, 'Custom Field', true);
+
+
+}
+
+add_action('rest_api_init', 'cp_rest_api');

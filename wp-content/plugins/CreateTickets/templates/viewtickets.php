@@ -58,18 +58,9 @@ if ($results) {
 
 global $wpdb;
 
-$table_name = $wpdb->prefix . 'tickets';
-
-//  if (isset($_POST['delete_ticket'])) {
-//      $ticket_id = $_POST['ticket_id'];
-//     $wpdb->delete($table_name, array('ticket_id' => $ticket_id));
-//     echo '<script> location.reload(); </script>';
-//  }
-
-
-global $wpdb;
 global $success_msg;
 global $error_msg;
+$table_name = $wpdb->prefix . 'tickets';
 
 $table_name = $wpdb->prefix . 'tickets';
 
