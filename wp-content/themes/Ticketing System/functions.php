@@ -82,9 +82,44 @@ function get_custom_field($obj){
      print_r($post_id);
      echo '</pre>';
 
-     return get_post_meta($post_id, 'Custom Field', true);
+     return get_post_meta($post_id, 'Custom Field~', true);
 
 
 }
 
 add_action('rest_api_init', 'cp_rest_api');
+
+//CUSTOM ENDPOINTS 
+function custom_endpoints_init() {
+    add_rewrite_endpoint( 'my-custom-endpoint', EP_PAGES );
+}
+add_action( 'init', 'custom_endpoints_init' );
+
+function handle_custom_endpoint_request() {
+    if ( get_query_var( 'my-custom-endpoint' ) ) {
+        // Custom endpoint logic goes here
+        // Example: Display custom content or perform specific actions
+        echo '<h1>This is my custom endpoint!</h1>';
+        exit;
+    }
+}
+add_action( 'template_redirect', 'handle_custom_endpoint_request' );
+
+
+//CUSTOM FIELD REST API 
+function custom_field_rest_api() {
+    register_rest_field(
+        'post',
+        'custom_field',
+        [
+            'get_callback' => 'get_custom_field'
+        ]
+    );
+}
+
+// function get_custom_field( $object ) {
+//     $post_id = $object['id'];
+//     return get_post_meta( $post_id, 'Custom Field', true );
+// }
+
+// add_action( 'rest_api_init', 'custom_field_rest_api' );
